@@ -1,0 +1,37 @@
+<div class="hl-dtp">
+    <div class="hl-dtp-output" (click)="showContainer=true">
+        <label>Select Date & Time</label>
+        <span>12/08/2021 02:00 PM</span>
+    </div>
+    <div class="hl-dtp-holder" *ngIf="showContainer">
+        <div class="hl-dtp-overlay"></div>
+        <div class="hl-dtp-container">
+            <div class="hl-dtp-header">
+                <button *ngIf="showDatepicker" (click)="prevMonth()"><span class="hl-dtp-chevron left"></span></button>
+                <div>
+                    <h1 *ngIf="enableDatepicker">{{getHeaderLabel()}}</h1>
+                    <span *ngIf="enableTimepicker && showTimepicker == false">12:25 AM</span>
+                </div>
+                <button *ngIf="showDatepicker" (click)="nextMonth()"><span class="hl-dtp-chevron right"></span></button>
+            </div>
+            <div class="hl-dtp-body">
+                <div class="hl-dp-header" *ngIf="showDatepicker">
+                    <button>June <span class="hl-dtp-caret"></span></button>
+                    <button>2021 <span class="hl-dtp-caret"></span></button>
+                </div>  
+                <div class="hl-dp-body" *ngIf="showDatepicker">
+                    <ul class="hl-dp-weeks">
+                        <li *ngFor="let week of getWeekNames(1)"><span>{{week}}</span></li>
+                    </ul>
+                    <ul class="hl-dp-days">
+                        <li *ngFor="let day of getSelectedMonthDays()" (click)="showDatepicker=false;showTimepicker=true"><span>{{day}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hl-dtp-footer">
+                <button>Canel</button>
+                <button>Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
