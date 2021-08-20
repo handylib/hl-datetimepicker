@@ -3,5 +3,8 @@
   "dest": "../../dist/hl-datetimepicker",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "moment","ngx-moment"
+  ]
 }

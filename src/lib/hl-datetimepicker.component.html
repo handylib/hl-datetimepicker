@@ -1,36 +1,56 @@
-<div class="hl-dtp">
-    <div class="hl-dtp-output" (click)="showContainer=true">
-        <label>Select Date & Time</label>
-        <span>12/08/2021 02:00 PM</span>
+<div class="hl-dtp {{showContainer == true ? 'active' : ''}}">
+    <div class="hl-dtp-output" (click)="openDatepicker()">
+        <label>{{label}}</label>
+        <span> {{ngModel | amLocal | amDateFormat: format}}</span>
     </div>
     <div class="hl-dtp-holder" *ngIf="showContainer">
         <div class="hl-dtp-overlay"></div>
         <div class="hl-dtp-container">
             <div class="hl-dtp-header">
-                <button *ngIf="showDatepicker" (click)="prevMonth()"><span class="hl-dtp-chevron left"></span></button>
+                <button [style.display]="showDatepicker == true ? 'block' : 'none'" (click)="prevMonth()"><span class="hl-dtp-chevron left"></span></button>
                 <div>
-                    <h1 *ngIf="enableDatepicker">{{getHeaderLabel()}}</h1>
-                    <span *ngIf="enableTimepicker && showTimepicker == false">12:25 AM</span>
+                    <h1 *ngIf="enableDatepicker">{{getCurrentSelectedDate() | amLocal | amDateFormat: 'DD MMMM YYYY'}}</h1>
+                    <span *ngIf="enableTimepicker && showTimepicker == false">{{getCurrentSelectedDate() | amLocal | amDateFormat: 'hh:mm A'}}</span>
                 </div>
-                <button *ngIf="showDatepicker" (click)="nextMonth()"><span class="hl-dtp-chevron right"></span></button>
+                <button [style.display]="showDatepicker == true ? 'block' : 'none'" (click)="nextMonth()"><span class="hl-dtp-chevron right"></span></button>
             </div>
             <div class="hl-dtp-body">
-                <div class="hl-dp-header" *ngIf="showDatepicker">
-                    <button>June <span class="hl-dtp-caret"></span></button>
-                    <button>2021 <span class="hl-dtp-caret"></span></button>
+                <div class="hl-dp-header" [style.display]="showDatepicker == true ? 'block' : 'none'">
+                    <button (click)="showMonths()" >{{getCurrentSelectedDate() | amLocal | amDateFormat: 'MMMM'}} <span class="hl-dtp-caret"></span></button>
+                    <button (click)="showYears()">{{getCurrentSelectedDate() | amLocal | amDateFormat: 'YYYY'}} <span class="hl-dtp-caret"></span></button>
                 </div>  
-                <div class="hl-dp-body" *ngIf="showDatepicker">
-                    <ul class="hl-dp-weeks">
+                <div class="hl-dp-body" [style.display]="showDatepicker == true ? 'block' : 'none'">
+                    <ul class="hl-dp-weeks" [style.display]="showDatePickerDays == true ? 'block' : 'none'">
                         <li *ngFor="let week of getWeekNames(1)"><span>{{week}}</span></li>
                     </ul>
-                    <ul class="hl-dp-days">
-                        <li *ngFor="let day of getSelectedMonthDays()" (click)="showDatepicker=false;showTimepicker=true"><span>{{day}}</span></li>
+                    <ul class="hl-dp-days" [style.display]="showDatePickerDays == true ? 'block' : 'none'">
+                        <li *ngFor="let day of getSelectedMonthDays()" (click)="selectDate(day)" class="{{day == selectedDate ? 'active' : ''}}"><span>{{day}}</span></li>
                     </ul>
+                    <ul class="hl-dp-months" [style.display]="showDatePickerMonths == true ? 'block' : 'none'">
+                        <li *ngFor="let m of monthNames;let i = index" class="{{i == selectedMonth ? 'active' : ''}}" (click)="selectMonth(i)"><span>{{m}}</span></li>
+                    </ul>
+                    <button [style.display]="showDatePickerYears == true ? 'block' : 'none'" (click)="paginateYearsRangePrev()"><i class="hl-chevron hl-chevron-up"></i></button>
+                    <ul class="hl-dp-years"  [style.display]="showDatePickerYears == true ? 'block' : 'none'">
+                        <li *ngFor="let y of getYearsRange()" class="{{y == selectedYear ? 'active' : ''}}" (click)="selectYear(y)"><span>{{y}}</span></li>
+                    </ul>
+                    <button [style.display]="showDatePickerYears == true ? 'block' : 'none'" (click)="paginateYearsRangeNext()"><i class="hl-chevron hl-chevron-down"></i></button>
+                </div>
+                <div class="hl-tp-body" [style.display]="showTimepicker == true ? 'flex' : 'none'">
+                    <div>
+                        <hl-num-selector [min]="1" [max]="12" [value]="selectedHours"></hl-num-selector>
+                    </div>
+                    <div>
+                        <hl-num-selector [min]="0" [max]="59" [value]="selectedMinutes"></hl-num-selector>
+                    </div>
+                    <div>
+                        <button class="{{selectedDay == 'am' ? 'active' : ''}}" (click)="selectedDay = 'am'">AM</button>
+                        <button class="{{selectedDay == 'pm' ? 'active' : ''}}" (click)="selectedDay = 'pm'">PM</button>
+                    </div>
                 </div>
             </div>
             <div class="hl-dtp-footer">
-                <button>Canel</button>
-                <button>Ok</button>
+                <button (click)="showContainer = false">Canel</button>
+                <button (click)="finalSelect()">Ok</button>
             </div>
         </div>
     </div>

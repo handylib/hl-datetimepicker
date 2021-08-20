@@ -101,12 +101,26 @@
     font-size: 20px;
 }
 
+.hl-dp-body > button {
+    width: 100%;
+    display: block;
+    float: left;
+    height: 40px;
+    border: none;
+    background: #2979ff;
+}
+
+
 .hl-dp-body > ul {
     display: block;
     margin: 0px;
     padding: 0px;
     list-style: none;
+    float: left;
+    width: 100%;
 }
+
+
 
 .hl-dp-body > ul > li {
     width: 14.28%;
@@ -117,7 +131,18 @@
     justify-content: center;
 }
 
-.hl-dp-body > ul.hl-dp-days > li > span {
+
+.hl-dp-body > ul.hl-dp-months > li {
+    display: inline-block;
+    width: 33.33%;
+}
+
+.hl-dp-body > ul.hl-dp-years > li {
+    display: inline-block;
+    width: 16.66%;
+}
+
+.hl-dp-body > ul.hl-dp-days > li > span,.hl-dp-body > ul.hl-dp-months > li > span,.hl-dp-body > ul.hl-dp-years > li > span {
     width: 100%;
     height: 35px;
     background: #fff;
@@ -128,11 +153,17 @@
     cursor: pointer;
 }
 
-.hl-dp-body > ul.hl-dp-days > li:hover > span {
+.hl-dp-body > .hl-dp-days > li.active > span,.hl-dp-body > .hl-dp-months > li.active > span,.hl-dp-body > .hl-dp-years > li.active > span {
+    background: #2979ff;
+    color: #fff;
+}
+
+.hl-dp-body > ul.hl-dp-days > li:hover > span,.hl-dp-body > ul.hl-dp-months > li:hover > span,.hl-dp-body > ul.hl-dp-years > li:hover > span {
     background: #ddd;
 }
 
 .hl-dtp-container {
+    position: absolute;
     background: #fff;
     float: left;
     border-color: #ced4da;
@@ -141,8 +172,6 @@
     border-left-width: 1px;
     border-right-width: 1px;
     border-top: none;
-    -webkit-box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%), 0 2px 10px 0 rgb(0 0 0 / 10%);
     width: 100%;
 }
 
@@ -207,4 +236,61 @@ span.hl-dtp-caret {
 
 .hl-dp-body > ul.hl-dp-weeks > li > span {
     font-weight: bold;
+}
+
+.hl-tp-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.hl-tp-body > div {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.hl-dtp.active .hl-dtp-output,.hl-dtp.active .hl-dtp-container {
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem #0d6efd40;
+}
+
+.hl-dtp.active .hl-dtp-output {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+}
+
+.hl-dtp.active .hl-dtp-container {
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+
+.hl-tp-body div > button {
+    border: 1px solid #ddd;
+    margin: 5px 0px;
+    border-radius: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 100%;
+    padding: 5px 20px;
+    background: #ddd;
+    outline: none;
+}
+
+.hl-tp-body div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hl-tp-body div > button.active {
+    background: #2979ff;
+    color: #fff;
 }

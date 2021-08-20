@@ -1,27 +1,43 @@
-# HlDatetimepicker
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.0.
 
 
 This Library is best used with bootstrap 5 floating form control. its datepicker themed for bootstrap floating control. 
 
-## Code scaffolding
+Import the HlDatetimepickerModule into your app module or whatever lazy loading module you want to 
 
-Run `ng generate component component-name --project hl-datetimepicker` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project hl-datetimepicker`.
-> Note: Don't forget to add `--project hl-datetimepicker` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
+For Example -> app.module.ts
 
-Run `ng build hl-datetimepicker` to build the project. The build artifacts will be stored in the `dist/` directory.
+```javascript
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { HlDatetimepickerModule } from 'hl-datetimepicker';
 
-## Publishing
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
-After building your library with `ng build hl-datetimepicker`, go to the dist folder `cd dist/hl-datetimepicker` and run `npm publish`.
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    HlDatetimepickerModule,
+    CommonModule,
+    AppRoutingModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
 
-## Running unit tests
 
-Run `ng test hl-datetimepicker` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Once you import the module you can use it something like below 
 
-## Further help
+```html 
+ <hl-datetimepicker [label]="'Select a date and time'" [(ngModel)]="selectedDate"></hl-datetimepicker>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+selectedDate is a variabile in your component.ts file which will hold the value 
